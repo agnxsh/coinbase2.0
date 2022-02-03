@@ -3,9 +3,9 @@ import { useWeb3 } from "@3rdweb/hooks";
 
 import Dashboard from "./Dashboard";
 
-function Home() {
-  const { connectWallet, address, error } = useWeb3();
-  error ? console.log(error) : null;
+const Home = () => {
+  const { address, connectWallet } = useWeb3();
+
   return (
     <Wrapper>
       {address ? (
@@ -23,10 +23,8 @@ function Home() {
       )}
     </Wrapper>
   );
-}
-
+};
 export default Home;
-
 const Wrapper = styled.div`
   display: flex;
   height: 100vh;
