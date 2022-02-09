@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import styled from "styled-components";
 import { coins } from "../static/coins";
 import Coin from "./Coin";
 import BalanceChart from "./BalanceChart";
+
 const Portfolio = () => {
   return (
     <Wrapper>
