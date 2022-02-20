@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Main from "../components/Main";
@@ -42,8 +42,16 @@ const Dashboard = ({ address }) => {
     <Wrapper>
       <Sidebar />
       <MainContainer>
-        <Header walletAddress={address} />
-        <Main />
+        <Header
+          walletAddress={address}
+          sanityTokens={sanityTokens}
+          thirdWebTokens={thirdWebTokens}
+        />
+        <Main
+          walletAddress={address}
+          sanityTokens={sanityTokens}
+          thirdWebTokens={thirdWebTokens}
+        />
       </MainContainer>
     </Wrapper>
   );

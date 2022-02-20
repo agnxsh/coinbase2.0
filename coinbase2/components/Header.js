@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import Modal from "react-modal";
+import { useRouter } from "next/router";
 
-const Header = ({ walletAddress, connectWallet }) => {
+const Header = ({
+  sanityTokens,
+  thirdWebTokens,
+  walletAddress,
+  connectWallet,
+}) => {
   return (
     <Wrapper>
       <Title>Assets</Title>

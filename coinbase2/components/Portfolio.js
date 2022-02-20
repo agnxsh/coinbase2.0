@@ -4,8 +4,40 @@ import styled from "styled-components";
 import { coins } from "../static/coins";
 import Coin from "./Coin";
 import BalanceChart from "./BalanceChart";
+import { ThirdwebSDK } from "@3rdweb/sdk";
 
-const Portfolio = () => {
+const Portfolio = ({ thirdWebTokens, sanityTokens, walletAddress }) => {
+  // console.log(sanityTokens, "loll");
+  // console.log(thirdWebTokens, "loll");
+  // console.log(walletAddress, "loll");
+
+  // thirdWebTokens[0]
+  //   .balanceOf(walletAddress)
+  //   .then((balance) => console.log(Number(balance.displayValue) * 3100));
+
+  //converting all of my token values into a corresponding USD value
+
+  const [walletBalance, setWalletBalance] = useState(0);
+
+  const tokenToUSD = {};
+  for (const token of sanityTokens) {
+    tokenToUSD[token.contractAddress] = Number(token.usdPrice);
+  }
+
+  useEffect(() => {
+    const calculateTotalBalance = async () => {
+      const totalBalance = await Promise.all(
+        thirdWebTokens.map(async (token) => {
+          const balance = await token.balanceOf(walletAddress);
+          return Number(balance.displayValue) * tokenToUSD[token.address];
+        })
+      );
+      console.log(totalBalance, "total balance");
+      setWalletBalance(totalBalance.reduce((acc, curr) => acc + curr, 0));
+    };
+    return calculateTotalBalance();
+  }, [thirdWebTokens, sanityTokens]);
+
   return (
     <Wrapper>
       {" "}
@@ -16,8 +48,8 @@ const Portfolio = () => {
               <BalanceTitle>Portfolio balance</BalanceTitle>
               <BalanceValue>
                 {"$"}
-                {/* {walletBalance.toLocaleString()} */}
-                46,000
+                {walletBalance.toLocaleString()}
+                {/* 46,000 */}
               </BalanceValue>
             </Balance>
           </div>
